@@ -1,0 +1,20 @@
+﻿@model DSUHvZ.ViewModels.GamesViewModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+        <th>Game Name</th>
+        <th>Game ID</th>
+    </tr>
+    @foreach (var game in Model.GamesList)
+    {
+        <tr>
+            <td>@game.Name</td>
+            <td>@game.ID</td>
+        </tr>
+    }
+</table>

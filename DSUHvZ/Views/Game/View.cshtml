@@ -1,0 +1,22 @@
+﻿@model DSUHvZ.Models.Game
+@{
+    ViewBag.Title = "View Game";
+}
+
+<h2>View</h2>
+
+<h2>@Model.Name</h2>
+
+@if (Model.Players.Count == 0)
+{
+    <p>No players are active in this game.</p>
+}
+else
+{
+    <ul>
+        @foreach (var player in Model.Players)
+        {
+            <li>@player.Name</li>
+        }
+    </ul>
+}
