@@ -5,11 +5,11 @@ using System.Web;
 
 namespace DSUHvZ.Models
 {
-    public class User
+    public class AppUser
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public Game ActiveGame { get; set; }
+        public int ActiveGameID { get; set; }
         public string Email { get; set; }
 
     }

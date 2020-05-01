@@ -9,8 +9,8 @@ namespace DSUHvZ.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public User Owner { get; set; }
-        public List<Player> Players { get; set; }
-        public List<Admin> Admins { get; set; }
+        public int OwnerID { get; set; }
+        public List<int> Players { get; set; }
+        public List<int> Admins { get; set; }
     }
 }

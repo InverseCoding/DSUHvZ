@@ -14,14 +14,14 @@ namespace DSUHvZ.Controllers
         public ActionResult ActiveGame()
         {
             //TODO: Replace code with quereies that get the logged in user's current game
-            var gameInstance = new Game() { Name = "Test Game Title" };
+            /*var gameInstance = new Game() { Name = "Test Game Title" };
             gameInstance.Players = new List<Player>
             {
                 new Player {Name = "Test Player 1"},
                 new Player {Name = "Test Player 2"}
-            };
+            };*/
 
-            return View(gameInstance);
+            return View();
         }
 
         public ActionResult Edit(int id)
@@ -38,14 +38,14 @@ namespace DSUHvZ.Controllers
                 id = 0;
                 return RedirectToAction("Index");
             }
-            var gameInstance = new Game() { Name = "Test Game Title", ID = (int)id};
+            /*var gameInstance = new Game() { Name = "Test Game Title", ID = (int)id};
             gameInstance.Players = new List<Player>
             {
                 new Player {Name = "Test Player 1"},
                 new Player {Name = "Test Player 2"}
-            };
+            };*/
 
-            return View(gameInstance);
+            return View();
         }
 
         public ActionResult Index()

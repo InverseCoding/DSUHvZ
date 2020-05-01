@@ -5,7 +5,7 @@ using System.Web;
 
 namespace DSUHvZ.Models
 {
-    public class Admin : User
+    public class Admin : AppUser
     {
     }
 }
