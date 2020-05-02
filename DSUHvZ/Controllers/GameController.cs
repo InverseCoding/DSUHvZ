@@ -10,6 +10,19 @@ namespace DSUHvZ.Controllers
 {
     public class GameController : Controller
     {
+        private ApplicationDbContext _contextGames;
+        private ApplicationDbContext _contextUsers;
+
+        public GameController()
+        {
+            _contextGames = new ApplicationDbContext();
+            _contextUsers = new ApplicationDbContext();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _contextGames.Dispose();
+        }
         // GET: GameInstance
         public ActionResult ActiveGame()
         {
@@ -38,31 +51,26 @@ namespace DSUHvZ.Controllers
                 id = 0;
                 return RedirectToAction("Index");
             }
-            /*var gameInstance = new Game() { Name = "Test Game Title", ID = (int)id};
-            gameInstance.Players = new List<Player>
-            {
-                new Player {Name = "Test Player 1"},
-                new Player {Name = "Test Player 2"}
-            };*/
 
-            return View();
+            var game = _contextGames.Games.SingleOrDefault(g => g.ID == id);
+
+            if (game == null)
+                return HttpNotFound();
+
+            List<AppUser> Players = (from user in _contextUsers.AppUsers
+                                     where user.ActiveGameID == game.ID
+                                     select user).ToList();
+            game.Players = Players.ConvertAll(p => new Player(p));
+
+
+            return View(game);
         }
 
         public ActionResult Index()
         {
-            var allGames = new List<Game>
-            {
-                //TODO: Replace setting here with database calls to retreive active game instances
-                new Game {Name = "Game 1", ID = 1},
-                new Game {Name = "Game 2", ID = 2}
-            };
+            var games = _contextGames.Games.ToList();
 
-            var viewModel = new GamesViewModel
-            {
-                GamesList = allGames
-            };
-
-            return View(viewModel);
+            return View(games);
         }
     }
 }

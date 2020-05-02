@@ -21,6 +21,7 @@ namespace DSUHvZ.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<Game> Games { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

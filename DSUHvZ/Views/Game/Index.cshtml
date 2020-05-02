@@ -1,4 +1,4 @@
-﻿@model DSUHvZ.ViewModels.GamesViewModel
+﻿@model IEnumerable<DSUHvZ.Models.Game>
 @{
     ViewBag.Title = "Index";
 }
@@ -10,10 +10,10 @@
         <th>Game Name</th>
         <th>Game ID</th>
     </tr>
-    @foreach (var game in Model.GamesList)
+    @foreach (var game in Model)
     {
         <tr>
-            <td>@game.Name</td>
+            <td>@Html.ActionLink(game.Name, "View", "Game", new { id = game.ID }, null)</td>
             <td>@game.ID</td>
         </tr>
     }

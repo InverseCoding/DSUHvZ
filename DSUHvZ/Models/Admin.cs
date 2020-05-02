@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSUHvZ.Models
 {
-    public class Admin : AppUser
+    [NotMapped] public class Admin : AppUser
     {
+        public Admin(AppUser user) : base(user)
+        {
+
+        }
     }
 }

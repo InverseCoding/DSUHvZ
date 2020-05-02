@@ -178,6 +178,34 @@
     <Compile Include="Migrations\202005011951599_InitialModel.Designer.cs">
       <DependentUpon>202005011951599_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005012015214_AddOwnedGamesID.cs" />
+    <Compile Include="Migrations\202005012015214_AddOwnedGamesID.Designer.cs">
+      <DependentUpon>202005012015214_AddOwnedGamesID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012022045_RemovedMostLists.cs" />
+    <Compile Include="Migrations\202005012022045_RemovedMostLists.Designer.cs">
+      <DependentUpon>202005012022045_RemovedMostLists.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012022286_PopulateUsers.cs" />
+    <Compile Include="Migrations\202005012022286_PopulateUsers.Designer.cs">
+      <DependentUpon>202005012022286_PopulateUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012055522_AddNotMapped.cs" />
+    <Compile Include="Migrations\202005012055522_AddNotMapped.Designer.cs">
+      <DependentUpon>202005012055522_AddNotMapped.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012056444_PopulateUsers1.cs" />
+    <Compile Include="Migrations\202005012056444_PopulateUsers1.Designer.cs">
+      <DependentUpon>202005012056444_PopulateUsers1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012103333_AddDataAnnotations.cs" />
+    <Compile Include="Migrations\202005012103333_AddDataAnnotations.Designer.cs">
+      <DependentUpon>202005012103333_AddDataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005012111407_AddGames.cs" />
+    <Compile Include="Migrations\202005012111407_AddGames.Designer.cs">
+      <DependentUpon>202005012111407_AddGames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -270,6 +298,27 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005011951599_InitialModel.resx">
       <DependentUpon>202005011951599_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012015214_AddOwnedGamesID.resx">
+      <DependentUpon>202005012015214_AddOwnedGamesID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012022045_RemovedMostLists.resx">
+      <DependentUpon>202005012022045_RemovedMostLists.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012022286_PopulateUsers.resx">
+      <DependentUpon>202005012022286_PopulateUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012055522_AddNotMapped.resx">
+      <DependentUpon>202005012055522_AddNotMapped.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012056444_PopulateUsers1.resx">
+      <DependentUpon>202005012056444_PopulateUsers1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012103333_AddDataAnnotations.resx">
+      <DependentUpon>202005012103333_AddDataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005012111407_AddGames.resx">
+      <DependentUpon>202005012111407_AddGames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

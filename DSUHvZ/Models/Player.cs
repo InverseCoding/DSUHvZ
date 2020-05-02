@@ -2,10 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSUHvZ.Models
 {
-    public class Player : AppUser
+    [NotMapped] public class Player : AppUser
     {
+        public Player(AppUser user) : base(user)
+        {
+
+        }
     }
 }
