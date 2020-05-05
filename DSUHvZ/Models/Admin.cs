@@ -6,7 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DSUHvZ.Models
 {
-    [NotMapped] public class Admin : AppUser
+    [NotMapped]
+    public class Admin : AppUser
     {
         public Admin(AppUser user) : base(user)
         {

@@ -24,6 +24,7 @@ namespace DSUHvZ.Controllers
             _contextGames.Dispose();
         }
         // GET: GameInstance
+        [Authorize]
         public ActionResult ActiveGame()
         {
             //TODO: Replace code with quereies that get the logged in user's current game
@@ -36,6 +37,7 @@ namespace DSUHvZ.Controllers
 
             return View();
         }
+
 
         public ActionResult Edit(int id)
         {
@@ -65,6 +67,7 @@ namespace DSUHvZ.Controllers
             return View(game);
         }
 
+        [Authorize]
         public ActionResult New()
         {
             return View();

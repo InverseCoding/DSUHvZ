@@ -210,6 +210,10 @@
     <Compile Include="Migrations\202005050155004_Additional Game Parameters.Designer.cs">
       <DependentUpon>202005050155004_Additional Game Parameters.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005051513057_ModifiedVariousModels.cs" />
+    <Compile Include="Migrations\202005051513057_ModifiedVariousModels.Designer.cs">
+      <DependentUpon>202005051513057_ModifiedVariousModels.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -327,6 +331,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005050155004_Additional Game Parameters.resx">
       <DependentUpon>202005050155004_Additional Game Parameters.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005051513057_ModifiedVariousModels.resx">
+      <DependentUpon>202005051513057_ModifiedVariousModels.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

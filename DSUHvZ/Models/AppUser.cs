@@ -10,10 +10,15 @@ namespace DSUHvZ.Models
     public class AppUser
     {
         public int ID { get; set; }
+
+        public int AccountID { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
-        public int ActiveGameID { get; set; }
+
+        public int? ActiveGameID { get; set; }
+
         [Required]
         [EmailAddress]
         [StringLength(255)]
@@ -26,6 +31,7 @@ namespace DSUHvZ.Models
         public AppUser(AppUser other)
         {
             this.ID = other.ID;
+            this.AccountID = other.AccountID;
             this.Name = other.Name;
             this.ActiveGameID = other.ActiveGameID;
             this.Email = other.Email;

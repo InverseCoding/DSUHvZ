@@ -25,6 +25,7 @@ namespace DSUHvZ.Models
         [Required]
         public int OwnerID { get; set; }
 
+        
         public List<Player> Players { get; set; }
     }
 }
