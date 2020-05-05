@@ -45,7 +45,6 @@ namespace DSUHvZ.Controllers
 
         public ActionResult View(int? id)
         {
-            //TODO: Replace declarations with queries to get game by ID
             if (!id.HasValue)
             {
                 id = 0;
@@ -64,6 +63,23 @@ namespace DSUHvZ.Controllers
 
 
             return View(game);
+        }
+
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Game game)
+        {
+            //TEMPORARY
+            game.OwnerID = 0;
+
+            _contextGames.Games.Add(game);
+            _contextGames.SaveChanges();
+
+            return RedirectToAction("Index", "Game");
         }
 
         public ActionResult Index()
