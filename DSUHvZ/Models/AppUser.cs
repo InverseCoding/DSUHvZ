@@ -9,24 +9,35 @@ namespace DSUHvZ.Models
 {
     public class AppUser
     {
+        
         public int ID { get; set; }
 
-        public int AccountID { get; set; }
+        [Required]
+        [StringLength(128)]
+        public string AccountID { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(256)]
         public string Name { get; set; }
 
         public int? ActiveGameID { get; set; }
 
         [Required]
         [EmailAddress]
-        [StringLength(255)]
+        [StringLength(256)]
         public string Email { get; set; }
 
         public AppUser()
         {
 
+        }
+
+        public AppUser(ApplicationUser other)
+        {
+            this.AccountID = other.Id;
+            this.Name = other.UserName;
+            this.ActiveGameID = 0;
+            this.Email = other.Email;
         }
         public AppUser(AppUser other)
         {

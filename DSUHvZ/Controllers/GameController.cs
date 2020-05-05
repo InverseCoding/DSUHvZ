@@ -3,25 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using DSUHvZ.Models;
-using DSUHvZ.ViewModels;
 
 namespace DSUHvZ.Controllers
 {
     public class GameController : Controller
     {
-        private ApplicationDbContext _contextGames;
-        private ApplicationDbContext _contextUsers;
+        private ApplicationDbContext _context;
 
         public GameController()
         {
-            _contextGames = new ApplicationDbContext();
-            _contextUsers = new ApplicationDbContext();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
         {
-            _contextGames.Dispose();
+            _context.Dispose();
         }
         // GET: GameInstance
         [Authorize]
@@ -53,15 +51,15 @@ namespace DSUHvZ.Controllers
                 return RedirectToAction("Index");
             }
 
-            var game = _contextGames.Games.SingleOrDefault(g => g.ID == id);
+            var game = _context.Games.SingleOrDefault(g => g.ID == id);
 
             if (game == null)
                 return HttpNotFound();
 
-            List<AppUser> Players = (from user in _contextUsers.AppUsers
-                                     where user.ActiveGameID == game.ID
-                                     select user).ToList();
-            game.Players = Players.ConvertAll(p => new Player(p));
+            List<ApplicationUser> Players = (from user in _context.Users
+                                             where user.ActiveGameID == id
+                                             select user).ToList();
+            game.Players = Players;
 
 
             return View(game);
@@ -73,21 +71,22 @@ namespace DSUHvZ.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Create(Game game)
         {
             //TEMPORARY
-            game.OwnerID = 0;
+            game.OwnerID = User.Identity.GetUserId();
 
-            _contextGames.Games.Add(game);
-            _contextGames.SaveChanges();
+            _context.Games.Add(game);
+            _context.SaveChanges();
 
             return RedirectToAction("Index", "Game");
         }
 
         public ActionResult Index()
         {
-            var games = _contextGames.Games.ToList();
+            var games = _context.Games.ToList();
 
             return View(games);
         }

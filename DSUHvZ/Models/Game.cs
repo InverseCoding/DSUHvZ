@@ -23,9 +23,10 @@ namespace DSUHvZ.Models
         public string Rules { get; set; }
 
         [Required]
-        public int OwnerID { get; set; }
+        [StringLength(128)]
+        public string OwnerID { get; set; }
 
         
-        public List<Player> Players { get; set; }
+        public List<ApplicationUser> Players { get; set; }
     }
 }
