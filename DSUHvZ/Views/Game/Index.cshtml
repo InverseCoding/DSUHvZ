@@ -9,16 +9,22 @@
     @Html.ActionLink("Create Game", "New", "Game", null, new { @class = "btn btn-primary" } )
 </p>
 
-<table class="table table-bordered table-hover">
-    <tr>
-        <th>Game Name</th>
-        <th>Game ID</th>
-    </tr>
-    @foreach (var game in Model)
-    {
-        <tr>
-            <td>@Html.ActionLink(game.Name, "View", "Game", new { id = game.ID }, null)</td>
-            <td>@game.ID</td>
-        </tr>
-    }
-</table>
+<div>
+    <table class="table table-bordered table-hover table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Game Name</th>
+                <th scope="col">Game ID</th>
+                <th scope="col">Join Game</th>
+            </tr>
+        </thead>
+        @foreach (var game in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(game.Name, "View", "Game", new { id = game.ID }, null)</td>
+                <td>@game.ID</td>
+                <td>@Html.ActionLink("Join Game", "Join", "Game", new { id = game.ID }, new { @class = "btn btn-primary" })</td>
+            </tr>
+        }
+    </table>
+</div>

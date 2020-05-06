@@ -1,0 +1,16 @@
+﻿@model DSUHvZ.ViewModels.JoinGameViewModel
+@{
+    ViewBag.Title = "Join";
+}
+
+<h2>Join @Model.game.Name</h2>
+
+@using (Html.BeginForm("Create", "Game"))
+{
+    <h3>Game Description</h3>
+    <p>@Model.game.Description</p>
+    <h3>Game Rules</h3>
+    <p>@Model.game.Rules</p>
+    <hr />
+
+}

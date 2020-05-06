@@ -26,6 +26,13 @@ namespace DSUHvZ.Models
         [StringLength(128)]
         public string OwnerID { get; set; }
 
+        [Required]
+        public bool IsActive { get; set; }
+
+        public Game()
+        {
+            this.IsActive = false;
+        }
         
         public List<ApplicationUser> Players { get; set; }
     }

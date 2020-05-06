@@ -3,18 +3,8 @@
     ViewBag.Title = "Active Game";
 }
 
+<h2>@ViewBag.Title</h2>
+
 <h2>@Model.Name</h2>
 
-@if (Model.Players.Count == 0)
-{
-    <p>No players are active in this game.</p>
-}
-else
-{
-    <ul>
-        @foreach (var player in Model.Players)
-        {
-            <li>@player.Name</li>
-        }
-    </ul>
-}
+@Html.Partial("_ViewPlayersInGame")
