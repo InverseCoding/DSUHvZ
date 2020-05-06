@@ -34,6 +34,5 @@ namespace DSUHvZ.Models
             this.IsActive = false;
         }
         
-        public List<ApplicationUser> Players { get; set; }
     }
 }

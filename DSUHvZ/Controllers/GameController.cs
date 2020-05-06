@@ -22,28 +22,56 @@ namespace DSUHvZ.Controllers
         {
             _context.Dispose();
         }
+
         // GET: GameInstance
         [Authorize]
         public ActionResult ActiveGame()
         {
-            var currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = _context.Users.SingleOrDefault(u => u.Id == currentUserId);
 
-            var game = _context.Games.SingleOrDefault(g => g.ID == currentUser.ActiveGameID);
+            var currentUserID = User.Identity.GetUserId();
+            var currentUserInGame = _context.UsersInGames.SingleOrDefault(u => u.UserID == currentUserID);
 
-            if (game == null)
+
+            if (currentUserInGame == null)
+                return RedirectToAction("Index", "Game");
+
+            var selectedGame = _context.Games.SingleOrDefault(g => g.ID == currentUserInGame.GameID);
+
+            if (selectedGame == null)
                 return HttpNotFound();
 
-            List<ApplicationUser> Players = (from _user in _context.Users
-                                             where _user.ActiveGameID == game.ID
-                                             select _user).ToList();
-            game.Players = Players;
+            //Find all players that have this game set as their active game
+            var ListOfPlayers = (from p in _context.UsersInGames
+                                 where p.GameID == currentUserInGame.GameID
+                                 select p).ToList();
+            List<Player> players = new List<Player>();
 
+            //Generate Player objects for easy representation of players
+            foreach(UserInGame user in ListOfPlayers)
+            {
+                Player tempPlayer = new Player
+                {
+                    UserID = user.UserID,
+                    UserName = _context.Users.SingleOrDefault(u => u.Id == user.UserID).UserName,
+                    SecretZombiePref = user.SecretZombiePref,
+                    IsSecretZombie = user.IsSecretZombie,
+                    Side = user.Side,
+                    IsAdmin = user.IsAdmin,
+                    TagCode = user.TagCode
+                };
+                players.Add(tempPlayer);
+            }
 
-            return View(game);
+            var viewGameViewModel = new ViewGameViewModel
+            {
+                Players = players,
+                SelectedGame = selectedGame
+            };
+
+            return View(viewGameViewModel);
 
         }
-
+        
 
         public ActionResult Edit(int id)
         {
@@ -54,23 +82,94 @@ namespace DSUHvZ.Controllers
         public ActionResult View(int? id)
         {
             if (!id.HasValue)
-            {
-                id = 0;
-                return RedirectToAction("Index");
-            }
+                return RedirectToAction("Index", "Game");
 
-            var game = _context.Games.SingleOrDefault(g => g.ID == id);
+            var selectedGame = _context.Games.SingleOrDefault(g => g.ID == id);
 
-            if (game == null)
+            if (selectedGame == null)
                 return HttpNotFound();
 
-            List<ApplicationUser> Players = (from user in _context.Users
-                                             where user.ActiveGameID == id
-                                             select user).ToList();
-            game.Players = Players;
+            //Find all players that have this game set as their active game
+            var ListOfPlayers = (from p in _context.UsersInGames
+                                 where p.GameID == id
+                                 select p).ToList();
 
+            List<Player> players = new List<Player>();
 
-            return View(game);
+            //Generate Player objects for easy representation of players
+            foreach(UserInGame user in ListOfPlayers)
+            {
+                Player tempPlayer = new Player
+                {
+                    UserID = user.UserID,
+                    UserName = _context.Users.SingleOrDefault(u => u.Id == user.UserID).UserName,
+                    SecretZombiePref = user.SecretZombiePref,
+                    IsSecretZombie = user.IsSecretZombie,
+                    Side = user.Side,
+                    IsAdmin = user.IsAdmin,
+                    TagCode = user.TagCode
+                };
+                players.Add(tempPlayer);
+            }
+
+            var viewGameViewModel = new ViewGameViewModel
+            {
+                Players = players,
+                SelectedGame = selectedGame
+            };
+
+            return View(viewGameViewModel);
+        }
+
+        [Authorize]
+        public ActionResult Join(int? id)
+        {
+            if (!id.HasValue)
+                return RedirectToAction("Index", "Game");
+
+            var selectedGame = _context.Games.SingleOrDefault(g => g.ID == id);
+
+            if (selectedGame == null)
+                return HttpNotFound();
+
+            var tempUserInGame = new UserInGame
+            {
+                UserID = User.Identity.GetUserId(),
+                GameID = (int)id,
+                SecretZombiePref = false,
+                IsSecretZombie = false,
+                Side = 1,
+                IsAdmin = false
+            };
+
+            return View(tempUserInGame);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult JoinAction(UserInGame otherUser)
+        {
+            var tempUserInGame = new UserInGame
+            {
+                UserID = otherUser.UserID,
+                GameID = otherUser.GameID,
+                SecretZombiePref = otherUser.SecretZombiePref,
+                IsSecretZombie = false,
+                Side = 1,
+                IsAdmin = false
+            };
+
+            UserInGame potentialOtherInstance = _context.UsersInGames.SingleOrDefault(u => u.UserID == tempUserInGame.UserID);
+
+            if (potentialOtherInstance != null)
+            {
+                _context.UsersInGames.Remove(potentialOtherInstance);
+                _context.SaveChanges();
+            }
+            _context.UsersInGames.Add(tempUserInGame);
+            _context.SaveChanges();
+
+            return RedirectToAction("ActiveGame", "Game");
         }
 
         [Authorize]
@@ -89,6 +188,28 @@ namespace DSUHvZ.Controllers
             _context.Games.Add(game);
             _context.SaveChanges();
 
+
+            var tempUserInGame = new UserInGame
+            {
+                UserID = game.OwnerID,
+                GameID = game.ID,
+                SecretZombiePref = false,
+                IsSecretZombie = false,
+                Side = 1,
+                IsAdmin = true
+            };
+
+            UserInGame potentialOtherInstance = _context.UsersInGames.SingleOrDefault(u => u.UserID == tempUserInGame.UserID);
+
+            if (potentialOtherInstance != null)
+            {
+                _context.UsersInGames.Remove(potentialOtherInstance);
+                _context.SaveChanges();
+            }
+
+            _context.UsersInGames.Add(tempUserInGame);
+            _context.SaveChanges();
+
             return RedirectToAction("Index", "Game");
         }
 
@@ -99,37 +220,5 @@ namespace DSUHvZ.Controllers
             return View(games);
         }
 
-        [Authorize]
-        [HttpGet]
-        public ActionResult Join(int? id)
-        {
-            if (!id.HasValue)
-            {
-                id = 0;
-                return RedirectToAction("Index");
-            }
-
-
-            var game = _context.Games.SingleOrDefault(g => g.ID == id);
-
-            if (game == null)
-                return HttpNotFound();
-
-            List<ApplicationUser> Players = (from user in _context.Users
-                                             where user.ActiveGameID == id
-                                             select user).ToList();
-            game.Players = Players;
-
-            var currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = _context.Users.SingleOrDefault(u => u.Id == currentUserId);
-
-            var joinGame = new JoinGameViewModel
-            {
-                game = game,
-                user = currentUser
-            };
-
-            return View(joinGame);
-        }
     }
 }

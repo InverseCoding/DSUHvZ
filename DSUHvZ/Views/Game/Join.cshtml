@@ -1,16 +1,24 @@
-﻿@model DSUHvZ.ViewModels.JoinGameViewModel
+﻿@model DSUHvZ.Models.UserInGame
 @{
     ViewBag.Title = "Join";
 }
 
-<h2>Join @Model.game.Name</h2>
+<h2>Join Game</h2>
 
-@using (Html.BeginForm("Create", "Game"))
+@using (Html.BeginForm("JoinAction", "Game"))
 {
-    <h3>Game Description</h3>
-    <p>@Model.game.Description</p>
-    <h3>Game Rules</h3>
-    <p>@Model.game.Rules</p>
-    <hr />
+    <div class="hidden">
+        @Html.TextBoxFor(m => m.UserID);
+    </div>
+    <div class="hidden">
+        @Html.TextBoxFor(m => m.GameID);
+    </div>
+    <div class="checkbox">
+        <label>
+            @Html.CheckBoxFor(m => m.SecretZombiePref) Check to allow yourself to be selected as an OZ
+        </label>
+    </div>
+    <h5>NOTE: Joining this game will leave any other game you may be in.</h5>
+    <button type="submit" class="btn btn-primary">Join Game</button>
 
 }

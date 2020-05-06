@@ -242,14 +242,33 @@
     <Compile Include="Migrations\202005060330172_AttemptAtImplementingJoining.Designer.cs">
       <DependentUpon>202005060330172_AttemptAtImplementingJoining.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005061631218_ReworkedUsersUsingUserInGame.cs" />
+    <Compile Include="Migrations\202005061631218_ReworkedUsersUsingUserInGame.Designer.cs">
+      <DependentUpon>202005061631218_ReworkedUsersUsingUserInGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005061635142_RemovedGamePlayersListInClass.cs" />
+    <Compile Include="Migrations\202005061635142_RemovedGamePlayersListInClass.Designer.cs">
+      <DependentUpon>202005061635142_RemovedGamePlayersListInClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005061705018_AddedMoreVarsToUserInGame.cs" />
+    <Compile Include="Migrations\202005061705018_AddedMoreVarsToUserInGame.Designer.cs">
+      <DependentUpon>202005061705018_AddedMoreVarsToUserInGame.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202005061719357_AddedTagCodeToUserInGame.cs" />
+    <Compile Include="Migrations\202005061719357_AddedTagCodeToUserInGame.Designer.cs">
+      <DependentUpon>202005061719357_AddedTagCodeToUserInGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Game.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Models\UserInGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\JoinGameViewModel.cs" />
+    <Compile Include="ViewModels\ViewGameViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -382,6 +401,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202005060330172_AttemptAtImplementingJoining.resx">
       <DependentUpon>202005060330172_AttemptAtImplementingJoining.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005061631218_ReworkedUsersUsingUserInGame.resx">
+      <DependentUpon>202005061631218_ReworkedUsersUsingUserInGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005061635142_RemovedGamePlayersListInClass.resx">
+      <DependentUpon>202005061635142_RemovedGamePlayersListInClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005061705018_AddedMoreVarsToUserInGame.resx">
+      <DependentUpon>202005061705018_AddedMoreVarsToUserInGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005061719357_AddedTagCodeToUserInGame.resx">
+      <DependentUpon>202005061719357_AddedTagCodeToUserInGame.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DSUHvZ.Models;
-using Microsoft.AspNet.Identity;
 
 namespace DSUHvZ.ViewModels
 {
-    public class JoinGameViewModel
+    public class ViewGameViewModel
     {
-        public Game Game { get; set; }
+        public IEnumerable<Player> Players { get; set; }
 
-        public UserInGame User { get; set; }
+        public Game SelectedGame { get; set; }
+
     }
 }
