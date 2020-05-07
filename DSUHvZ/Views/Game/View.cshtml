@@ -4,7 +4,14 @@
 }
 
 <h2>@ViewBag.Title</h2>
+@Html.Partial("_ViewPlayersInGame")
 
 <h2>@Model.SelectedGame.Name</h2>
 
-@Html.Partial("_ViewPlayersInGame")
+<div>
+    <h3 style="width:60%;">Game Description</h3>
+    <p style="width:60%;">@Model.SelectedGame.Description</p>
+    <h3 style="width:60%;">Game Rules</h3>
+    <p style="width:60%;">@Model.SelectedGame.Rules</p>
+
+</div>

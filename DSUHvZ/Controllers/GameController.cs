@@ -52,6 +52,7 @@ namespace DSUHvZ.Controllers
                 Player tempPlayer = new Player
                 {
                     UserID = user.UserID,
+                    EntryID = user.ID,
                     UserName = _context.Users.SingleOrDefault(u => u.Id == user.UserID).UserName,
                     SecretZombiePref = user.SecretZombiePref,
                     IsSecretZombie = user.IsSecretZombie,
@@ -62,21 +63,73 @@ namespace DSUHvZ.Controllers
                 players.Add(tempPlayer);
             }
 
+            Player currentPlayer;
+            string currentUserId = User.Identity.GetUserId();
+            Player selectedPlayer = players.SingleOrDefault(p => p.UserID == currentUserId);
+
+            if (selectedPlayer != null)
+            {
+                currentPlayer = selectedPlayer;
+            }
+            else
+            {
+                currentPlayer = new Player
+                {
+                    UserID = currentUserId,
+                    EntryID = 0,
+                    UserName = _context.Users.SingleOrDefault(p => p.Id == currentUserId).UserName,
+                    SecretZombiePref = false,
+                    IsSecretZombie = false,
+                    Side = 0,
+                    IsAdmin = false,
+                    TagCode = ""
+                };
+            }
+
             var viewGameViewModel = new ViewGameViewModel
             {
                 Players = players,
-                SelectedGame = selectedGame
+                SelectedGame = selectedGame,
+                CurrentPlayer = currentPlayer
             };
 
             return View(viewGameViewModel);
 
         }
-        
 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             //TODO: Replace code with actions relevant to allowing a user to edit their owned games by ID
             return Content("id=" + id);
+        }
+
+        [Authorize]
+        public ActionResult ChangeSide(int id)
+        {
+            var selectedUser = _context.UsersInGames.SingleOrDefault(u => u.ID == id);
+
+            if (selectedUser == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(selectedUser);
+        }
+
+        public ActionResult ChangeSideAction(UserInGame user)
+        {
+
+            var userInDb = _context.UsersInGames.SingleOrDefault(u => u.ID == user.ID);
+
+            if (userInDb == null)
+                return HttpNotFound();
+            else
+                userInDb.Side = user.Side;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ActiveGame", "Game");
         }
 
         public ActionResult View(int? id)
@@ -102,6 +155,7 @@ namespace DSUHvZ.Controllers
                 Player tempPlayer = new Player
                 {
                     UserID = user.UserID,
+                    EntryID = user.ID,
                     UserName = _context.Users.SingleOrDefault(u => u.Id == user.UserID).UserName,
                     SecretZombiePref = user.SecretZombiePref,
                     IsSecretZombie = user.IsSecretZombie,
@@ -112,10 +166,33 @@ namespace DSUHvZ.Controllers
                 players.Add(tempPlayer);
             }
 
+            Player currentPlayer;
+            string currentUserId = User.Identity.GetUserId();
+            Player selectedPlayer = players.SingleOrDefault(p => p.UserID == currentUserId);
+
+            if(selectedPlayer!=null)
+            {
+                currentPlayer = selectedPlayer;
+            } else
+            {
+                currentPlayer = new Player
+                {
+                    UserID = currentUserId,
+                    EntryID = 0,
+                    UserName = _context.Users.SingleOrDefault(p => p.Id == currentUserId).UserName,
+                    SecretZombiePref = false,
+                    IsSecretZombie = false,
+                    Side = 0,
+                    IsAdmin = false,
+                    TagCode = ""
+                };
+            }
+
             var viewGameViewModel = new ViewGameViewModel
             {
                 Players = players,
-                SelectedGame = selectedGame
+                SelectedGame = selectedGame,
+                CurrentPlayer = currentPlayer
             };
 
             return View(viewGameViewModel);

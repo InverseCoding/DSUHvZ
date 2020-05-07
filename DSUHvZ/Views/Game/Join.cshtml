@@ -8,10 +8,10 @@
 @using (Html.BeginForm("JoinAction", "Game"))
 {
     <div class="hidden">
-        @Html.TextBoxFor(m => m.UserID);
+        @Html.HiddenFor(m => m.UserID);
     </div>
     <div class="hidden">
-        @Html.TextBoxFor(m => m.GameID);
+        @Html.HiddenFor(m => m.GameID);
     </div>
     <div class="checkbox">
         <label>

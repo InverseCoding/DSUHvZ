@@ -10,6 +10,8 @@ namespace DSUHvZ.Models
     {
         public string UserID { get; set; }
 
+        public int EntryID { get; set; }
+
         public string UserName { get; set; }
 
         //Used to allow player to be selected as Original Zombie

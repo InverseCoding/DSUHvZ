@@ -1,14 +1,70 @@
-﻿@if (Model.Players.Count == 0)
-{
-    <p>No players are active in this game.</p>
-}
-else
-{
-    <ul>
-        @foreach (var player in Model.Players)
+﻿@*Note: Requires that the view using this partial be passed an instance of ViewGameViewModel*@
+    <div class="float-right">
+        <h3>
+            Player List
+            @if (Model.CurrentPlayer.EntryID != 0)
+            {
+                @Html.ActionLink("ClaimTag", "Game", null, new { @class = "float-right btn btn-primary" })
+            }
+        </h3>
+        @if (Model.Players.Count == 0)
         {
-            <li>@player.UserName</li>
+            <p>No players are active in this game.</p>
         }
-    </ul>
-}
+        else
+        {
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Player Name</th>
+                        <th scope="col">Player Side</th>
+                        <th scope="col">Is Admin</th>
+                        @if (Model.CurrentPlayer.IsAdmin)
+                        {
+                            <th>Admin Powers</th>
+                        }
+                    </tr>
+                </thead>
+                @foreach (var player in Model.Players)
+                {
+                    <tr>
+                        <td>@player.UserName</td>
+                        @if (player.Side == 1 || player.IsSecretZombie)
+                        {
+                            <td>Human</td>
+                        }
+                        else if (player.Side == 2 && !player.IsSecretZombie)
+                        {
+                            <td>Zombie</td>
+                        }
+                        else
+                        {
+                            <td>Error</td>
+                        }
 
+                        @if (player.IsAdmin)
+                        {
+                            <td>Admin</td>
+                        }
+                        else
+                        {
+                            <td>User</td>
+                        }
+
+                        @if (Model.CurrentPlayer.IsAdmin)
+                        {
+                            <td>
+                                @Html.ActionLink("Change Side", "ChangeSide", "Game", new { id = player.EntryID }, new { @class = "btn btn-primary" })
+                            </td>
+                        }
+                    </tr>
+                }
+            </table>
+        }
+
+        @if (Model.CurrentPlayer.EntryID != 0)
+        {
+            <h3>Your Tag Code: @Model.CurrentPlayer.TagCode</h3>
+        }
+
+    </div>

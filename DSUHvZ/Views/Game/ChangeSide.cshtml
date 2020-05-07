@@ -1,0 +1,24 @@
+﻿@model DSUHvZ.Models.UserInGame
+@{
+    ViewBag.Title = "ChangeSide";
+}
+
+<h2>ChangeSide</h2>
+
+@Html.BeginForm("ChangeSideAction", "Game")
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.UserID)
+@Html.HiddenFor(m => m.GameID)
+@Html.HiddenFor(m => m.SecretZombiePref)
+@Html.HiddenFor(m => m.IsSecretZombie)
+<div class="form-group">
+    @Html.LabelFor(m => m.Side)
+    @Html.DropDownListFor(m => m.Side, new List<SelectListItem>
+            {
+                new SelectListItem {Text = "Human", Value = "1"},
+                new SelectListItem {Text = "Zombie", Value = "2"}
+            })
+</div>
+@Html.HiddenFor(m => m.IsAdmin)
+@Html.HiddenFor(m => m.TagCode)
+<button type="submit" class="btn btn-primary">Join Game</button>
