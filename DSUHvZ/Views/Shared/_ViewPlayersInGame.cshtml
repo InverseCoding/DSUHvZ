@@ -2,9 +2,9 @@
     <div class="float-right">
         <h3>
             Player List
-            @if (Model.CurrentPlayer.EntryID != 0)
+            @if (Model.CurrentPlayer.EntryID != 0 && Model.CurrentPlayer.Side == 2)
             {
-                @Html.ActionLink("ClaimTag", "Game", null, new { @class = "float-right btn btn-primary" })
+                @Html.ActionLink("Claim Tag", "ClaimTag", "Game", null, new { @class = "float-right btn btn-primary" })
             }
         </h3>
         @if (Model.Players.Count == 0)

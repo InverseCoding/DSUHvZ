@@ -117,6 +117,8 @@ namespace DSUHvZ.Controllers
             return View(selectedUser);
         }
 
+        [Authorize]
+        [HttpPost]
         public ActionResult ChangeSideAction(UserInGame user)
         {
 
@@ -132,6 +134,33 @@ namespace DSUHvZ.Controllers
             return RedirectToAction("ActiveGame", "Game");
         }
 
+        [Authorize]
+        public ActionResult ClaimTag()
+        {
+            var tempUser = new UserInGame();
+            tempUser.Side = 2;
+            tempUser.TagCode = "";
+
+            return View(tempUser);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult ClaimTagAction(UserInGame user)
+        {
+            var userInDb = _context.UsersInGames.SingleOrDefault(u => u.TagCode == user.TagCode);
+
+            if (userInDb == null)
+                return HttpNotFound();
+            else
+                userInDb.Side = user.Side;
+
+            _context.SaveChanges();
+
+            return RedirectToAction("ActiveGame", "Game");
+        }
+
+        [Authorize]
         public ActionResult View(int? id)
         {
             if (!id.HasValue)

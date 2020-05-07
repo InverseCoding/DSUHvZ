@@ -1,0 +1,18 @@
+﻿@model DSUHvZ.Models.UserInGame
+@{
+    ViewBag.Title = "Claim Tag";
+}
+
+<h2>Claim Tag</h2>
+
+@Html.BeginForm("ClaimTagAction", "Game")
+@Html.HiddenFor(m => m.ID)
+@Html.HiddenFor(m => m.UserID)
+@Html.HiddenFor(m => m.GameID)
+@Html.HiddenFor(m => m.SecretZombiePref)
+@Html.HiddenFor(m => m.IsSecretZombie)
+@Html.HiddenFor(m => m.Side)
+@Html.HiddenFor(m => m.IsAdmin)
+@Html.LabelFor(m => m.TagCode)
+@Html.TextBoxFor(m => m.TagCode)
+<button type="submit" class="btn btn-primary">Join Game</button>

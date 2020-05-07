@@ -334,6 +334,7 @@
     <Content Include="Views\Shared\_ViewPlayersInGame.cshtml" />
     <Content Include="Views\Game\Join.cshtml" />
     <Content Include="Views\Game\ChangeSide.cshtml" />
+    <Content Include="Views\Game\ClaimTag.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
